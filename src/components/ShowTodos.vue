@@ -1,6 +1,6 @@
 <template>
     <ul class="todo-main">
-        <ShowOneThing/>
+        <ShowOneThing v-for="todo in todos" :key="todo.id" :things="todo" />
     </ul>
 </template>
 
@@ -9,10 +9,26 @@
     
     export default {
         name:'ShowTodos',
-        components:{ShowOneThing}
+        components:{ShowOneThing},
+        props:["todos"]
     }
 </script>
 
-<style>
+<style scoped>
+  /*main*/
+  .todo-main {
+    margin-left: 0px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 0px;
+  }
 
+  .todo-empty {
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding-left: 5px;
+    margin-top: 10px;
+  }
 </style>
