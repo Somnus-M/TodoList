@@ -1,6 +1,12 @@
 <template>
     <ul class="todo-main">
-        <ShowOneThing v-for="todo in todos" :key="todo.id" :things="todo" />
+        <ShowOneThing 
+          v-for="todo in todos" 
+          :key="todo.id" 
+          :todos="todo"
+          :checkTodo="checkTodo"
+          :deleteTodo="deleteTodo"
+        />
     </ul>
 </template>
 
@@ -10,7 +16,7 @@
     export default {
         name:'ShowTodos',
         components:{ShowOneThing},
-        props:["todos"]
+        props:['todos','checkTodo','deleteTodo']
     }
 </script>
 

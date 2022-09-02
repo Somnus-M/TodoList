@@ -1,17 +1,28 @@
 <template>
   <li>
-    <label>
-      <input type="checkbox" :checked="things.isFinish" />
-      <span>{{things.title}}</span>
+    <label >
+      <input type="checkbox" :checked="todos.isFinish" @change="handleChecked(todos.id)" />
+      <span>{{todos.title}}</span>
     </label>
-    <button class="btn btn-danger" style="display: none">删除</button>
+    <button class="btn btn-danger" @click="handleTodo(todos.id)">删除</button>
   </li>
 </template>
 
 <script>
 export default {
   name: "ShowOneThing",
-  props:['things']
+  props:['todos','checkTodo','deleteTodo'],
+  methods: {
+    handleChecked(id){
+     this.checkTodo(id)
+    },
+    handleTodo(id){
+      if(confirm('确定要删除吗？')){
+        
+        this.deleteTodo(id)
+      }
+    }
+  },
 }
 </script>
 
@@ -49,5 +60,11 @@ li:before {
 
 li:last-child {
   border-bottom: none;
+}
+li:hover{
+  background-color: #ddd;
+}
+li:hover button{
+  display: block;
 }
 </style>

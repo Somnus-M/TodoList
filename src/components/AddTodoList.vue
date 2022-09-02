@@ -17,7 +17,7 @@
         methods: {
             addThing(){
                 if(!this.title.trim()) return alert('不能为空')
-                const oneThing = {id:nanoid(),title:this.title,isFinsh:false}
+                const oneThing = {id:nanoid(),title:this.title,isFinish:false}
                 this.add(oneThing)
                 this.title='' 
             }           
