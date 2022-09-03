@@ -35,24 +35,8 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: "001",
-          title: "抽烟",
-          isFinish: true,
-        },
-        {
-          id: "002",
-          title: "喝酒",
-          isFinish: false,
-        },
-        {
-          id: "003",
-          title: "烫头",
-          isFinish: true,
-        },
-      ],
-    };
+      todos:JSON.parse(localStorage.getItem('todos')) || [],
+    }
   },
   methods: {
     //从AddtodoList添加事情
@@ -65,7 +49,7 @@ export default {
         if (todo.id === id) {
           todo.isFinish = !todo.isFinish;
         }
-      });
+      })
     },
     //删除事件
     deleteTodo(id) {
@@ -82,7 +66,15 @@ export default {
       this.todos=this.todos.filter((todo)=> !todo.isFinish)
     }
   },
-};
+  watch: {
+    todos:{
+      deep:true,
+      handler(value){
+        localStorage.setItem('todos',JSON.stringify(value))
+      }
+    }
+  },
+}
 </script>
 
 <style>
