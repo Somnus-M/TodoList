@@ -14,7 +14,7 @@
 <script>
 export default {
   name: "FinishTodo",
-  props: ["todos", "checkedTodos", "clearDoneTodos"],
+  props: ["todos",],
   computed: {
     doneTotal() {
       return this.todos.reduce((pre, todo) => pre + (todo.isFinish ? 1 : 0), 0);
@@ -27,16 +27,16 @@ export default {
         return this.doneTotal === this.allTotal && this.allTotal > 0;
       },
       set(value) {
-        this.checkedTodos(value);
+        this.$emit('checkedTodos',value)
       },
     },
   },
   methods: {
     handleChecked(e) {
-      this.checkedTodos(e.target.checked);
+      this.$emit('checkedTodos',e.target.checked);
     },
     handleClear() {
-      this.clearDoneTodos();
+      this.$emit('clearDoneTodos');
     },
   },
 };

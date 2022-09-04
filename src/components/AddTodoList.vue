@@ -1,6 +1,6 @@
 <template>
     <div class="todo-header">
-        <input type="text" placeholder="请输入你的任务名称，按回车键确认" v-model="title" @keyup.enter="addThing" />
+        <input type="text" placeholder="请输入你的任务名称，按回车键确认" v-model="title" @keyup.enter="addThing"  />
     </div>
 </template>
 
@@ -13,12 +13,11 @@
                 title:''
             }
         },
-        props:['add'],
         methods: {
             addThing(){
                 if(!this.title.trim()) return alert('不能为空')
                 const oneThing = {id:nanoid(),title:this.title,isFinish:false}
-                this.add(oneThing)
+                this.$emit('add',oneThing)
                 this.title='' 
             }           
                 
