@@ -79,6 +79,10 @@ export default {
       }
     }
   },
+  beforeDestroy() {
+    this.$bus.$off('checkTodo')
+    this.$bus.$off('deleteTodo')
+  },
 }
 </script>
 
