@@ -5,8 +5,8 @@
         <AddTodoList @add="add" />
         <ShowTodos
           :todos="todos"
-          :checkTodo="checkTodo"
-          :deleteTodo="deleteTodo"
+          
+          
         />
         <FinishTodo 
           :todos="todos" 
@@ -66,6 +66,11 @@ export default {
       this.todos=this.todos.filter((todo)=> !todo.isFinish)
     }
   },
+  mounted(){
+    this.$bus.$on('checkTodo',this.checkTodo)
+    this.$bus.$on('deleteTodo',this.deleteTodo)
+  }
+  ,
   watch: {
     todos:{
       deep:true,

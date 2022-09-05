@@ -11,15 +11,15 @@
 <script>
 export default {
   name: "ShowOneThing",
-  props:['todos','checkTodo','deleteTodo'],
+  props:['todos'],
   methods: {
     handleChecked(id){
-     this.checkTodo(id)
+      this.$bus.$emit('checkTodo',id)
     },
     handleTodo(id){
       if(confirm('确定要删除吗？')){
         
-        this.deleteTodo(id)
+        this.$bus.$emit('deleteTodo',id)
       }
     }
   },
