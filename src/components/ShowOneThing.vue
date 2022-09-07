@@ -1,32 +1,58 @@
 <template>
   <li>
-    <label >
-      <input type="checkbox" :checked="todos.isFinish" @change="handleChecked(todos.id)" />
-      <span>{{todos.title}}</span>
+    <label>
+      <input
+        type="checkbox"
+        :checked="todos.isFinish"
+        @change="handleChecked(todos.id)"
+      />
+      <span v-show="!todos.isEdit">{{ todos.title }}</span>
+      <input
+        type="text"
+        :value="todos.title"
+        v-show="todos.isEdit"
+        @blur="finishEdit(todos,$event)"
+        ref="inputTitle"
+      />
     </label>
     <button class="btn btn-danger" @click="handleTodo(todos.id)">删除</button>
+    <button class="btn btn-edit" @click="handleEdit(todos)" v-show="!todos.isEdit">编辑</button>
   </li>
 </template>
 
 <script>
 export default {
   name: "ShowOneThing",
-  props:['todos'],
+  props: ["todos"],
   methods: {
-    handleChecked(id){
-      this.$bus.$emit('checkTodo',id)
+    handleChecked(id) {
+      this.$bus.$emit("checkTodo", id)
     },
-    handleTodo(id){
-      if(confirm('确定要删除吗？')){
-        
-        this.$bus.$emit('deleteTodo',id)
+    handleTodo(id) {
+      if (confirm("确定要删除吗？")) {
+        this.$bus.$emit("deleteTodo", id)
       }
-    }
+    },
+    handleEdit(todos) {
+      if (todos.hasOwnProperty('isEdit')) {
+        todos.isEdit = true
+      } else {
+        console.log('@')
+        this.$set(todos, 'isEdit', true)
+      }
+      this.$nextTick(()=>{
+        this.$refs.inputTitle.focus()
+      })
+    },
+    finishEdit(todos,e) {
+      todos.isEdit = false
+      this.$bus.$emit('updateTitle',todos.id,e.target.value)
+    },
   },
-}
+};
 </script>
 
-<style scoped> 
+<style scoped>
 /*item*/
 li {
   list-style: none;
@@ -61,10 +87,10 @@ li:before {
 li:last-child {
   border-bottom: none;
 }
-li:hover{
+li:hover {
   background-color: #ddd;
 }
-li:hover button{
+li:hover button {
   display: block;
 }
 </style>

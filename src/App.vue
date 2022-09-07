@@ -47,7 +47,15 @@ export default {
     checkTodo(id) {
       this.todos.forEach((todo) => {
         if (todo.id === id) {
-          todo.isFinish = !todo.isFinish;
+          todo.isFinish = !todo.isFinish
+        }
+      })
+    },
+    //更新todosTitle
+    updateTitle(id,value) {
+      this.todos.forEach((todo) => {
+        if (todo.id === id) {
+          todo.title = value
         }
       })
     },
@@ -69,6 +77,7 @@ export default {
   mounted(){
     this.$bus.$on('checkTodo',this.checkTodo)
     this.$bus.$on('deleteTodo',this.deleteTodo)
+    this.$bus.$on('updateTitle',this.updateTitle)
   }
   ,
   watch: {
@@ -82,6 +91,7 @@ export default {
   beforeDestroy() {
     this.$bus.$off('checkTodo')
     this.$bus.$off('deleteTodo')
+    this.$bus.$off('updateTitle')
   },
 }
 </script>
@@ -110,6 +120,13 @@ body {
   color: #fff;
   background-color: #da4f49;
   border: 1px solid #bd362f;
+}
+
+.btn-edit {
+  color: #fff;
+  background-color: skyblue;
+  border: 1px solid rgb(112, 177, 202);
+  margin-right: 5px;
 }
 
 .btn-danger:hover {
