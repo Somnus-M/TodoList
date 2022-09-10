@@ -1,26 +1,34 @@
 <template>
-  <li>
-    <label>
-      <input
-        type="checkbox"
-        :checked="todos.isFinish"
-        @change="handleChecked(todos.id)"
-      />
-      <span v-show="!todos.isEdit">{{ todos.title }}</span>
-      <input
-        type="text"
-        :value="todos.title"
-        v-show="todos.isEdit"
-        @blur="finishEdit(todos,$event)"
-        ref="inputTitle"
-      />
-    </label>
-    <button class="btn btn-danger" @click="handleTodo(todos.id)">删除</button>
-    <button class="btn btn-edit" @click="handleEdit(todos)" v-show="!todos.isEdit">编辑</button>
-  </li>
+  <transition 
+    name="animate__animated animate__bounce"
+    appear
+    enter-active-class="animate__fadeInDown"
+    leave-active-class="animate__fadeOutDown"
+  >
+    <li>
+      <label>
+        <input
+          type="checkbox"
+          :checked="todos.isFinish"
+          @change="handleChecked(todos.id)"
+        />
+        <span v-show="!todos.isEdit">{{ todos.title }}</span>
+        <input
+          type="text"
+          :value="todos.title"
+          v-show="todos.isEdit"
+          @blur="finishEdit(todos,$event)"
+          ref="inputTitle"
+        />
+      </label>
+      <button class="btn btn-danger" @click="handleTodo(todos.id)">删除</button>
+      <button class="btn btn-edit" @click="handleEdit(todos)" v-show="!todos.isEdit">编辑</button>
+    </li>
+  </transition>
 </template>
 
 <script>
+import 'animate.css'
 export default {
   name: "ShowOneThing",
   props: ["todos"],
